@@ -16,7 +16,14 @@
         updatePos(position.x, position.y);
     });
 
-    await hub.start();
+    hub.on('Connected', position => {
+        console.log('Connected: ' + position.x + ', ' + position.y);
+        updatePos(position.x, position.y);
+        shape.style.display = 'block';
+    });
+
+    await hub.start()
+        .then(() => console.log('Started'));
 
     let mouseDown = false,
         offset = { x: 0, y: 0 };
